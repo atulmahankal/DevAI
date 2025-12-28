@@ -1,0 +1,19 @@
+# Cursor Rules
+
+## AI Agent Workflow
+This project follows an AI-instructional pattern.
+Read `.ai/AI_INSTRUCTIONS.md` for workflow details.
+
+## Commands
+- `continue` / `proceed` - Resume from last session
+
+## Key Files
+- `.ai/TODO.md` - Editable task list
+- `.ai/memory/` - Session memory storage
+- `Implementation/CURRENT_TASK.md` - Current work
+
+## Rules
+1. Always check TODO files before starting
+2. Create memory file for each session
+3. Update progress incrementally
+4. Keep memory entries minimal

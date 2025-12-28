@@ -1,0 +1,9 @@
+# AI Memory (optional - uncomment to ignore)
+# .ai/memory/
+
+# Common ignores
+node_modules/
+.env
+.env.local
+*.log
+.DS_Store
