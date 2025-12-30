@@ -18,17 +18,24 @@ AGENT_NAME = "gemini"
 
 ---
 
-## Critical Rules (Read AI_INSTRUCTIONS.md for details)
+## ⚠️ Critical Rules (MUST Follow)
 
 ### After Completing ANY Task
 ```
-MUST: Update TODO.md → Mark task as [x] completed
-MUST: Update CURRENT_TASK.md if you were registered
+IMMEDIATELY: Update TODO.md → Change [•] to [✓] for completed task
+IMMEDIATELY: Update your memory file with completion notes
+IMMEDIATELY: Update CURRENT_TASK.md if you were registered
+```
+
+### Before Starting Next Task
+```
+VERIFY: Previous task is marked [✓] in TODO.md
+DO NOT: Start new task until TODO.md is updated
 ```
 
 ### Before Starting Next Phase
 ```
-STOP: Confirm all tasks in current phase are [x] marked
+STOP: Confirm ALL tasks in current phase are [✓] marked
 STOP: Ask user to confirm git commit
 STOP: DO NOT proceed until commit is done
 ```
@@ -67,9 +74,11 @@ When working with other agents:
 .ai/memory/YYYYMMDD_HHMMSS_gemini.md
 ```
 
-### Task Claiming Format
+### Task Format
 ```markdown
-- [ ] Task name `@gemini` `#20241229-143022`
+- [ ] Pending task
+- [•] Task name `@gemini` `#20241229-143022`  ← In Progress
+- [✓] Completed task ~~@gemini~~ ~~#20241229-143022~~
 ```
 
 ## Gemini-Specific Notes

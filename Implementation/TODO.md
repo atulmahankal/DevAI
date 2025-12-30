@@ -6,19 +6,19 @@
 
 ## Task Format Guide
 
-### Unclaimed Task
+### Pending Task (unclaimed)
 ```markdown
 - [ ] Task description
 ```
 
-### Claimed Task (agent working on it)
+### In Progress Task (agent working on it)
 ```markdown
-- [ ] Task description `@agent` `#YYYYMMDD-HHMMSS`
+- [•] Task description `@agent` `#YYYYMMDD-HHMMSS`
 ```
 
 ### Completed Task
 ```markdown
-- [x] Task description ~~@agent~~ ~~#YYYYMMDD-HHMMSS~~
+- [✓] Task description ~~@agent~~ ~~#YYYYMMDD-HHMMSS~~
 ```
 
 ### Released Task (agent stopped without completing)
@@ -34,13 +34,13 @@
 ## Phase 2: Base Application
 
 ### Backend
-- [ ] Create FastAPI project structure `@claude` `#20241229-143022`
+- [•] Create FastAPI project structure `@claude` `#20241229-143022`
 - [ ] Add health endpoint
 - [ ] Setup rotating logs
-- [x] Configure error handling ~~@gemini~~ ~~#20241229-140000~~
+- [✓] Configure error handling ~~@gemini~~ ~~#20241229-140000~~
 
 ### Frontend
-- [ ] Create React project structure `@cursor` `#20241229-143200`
+- [•] Create React project structure `@cursor` `#20241229-143200`
 - [ ] Add landing page
 - [ ] Setup error boundary
 - [ ] Configure logging

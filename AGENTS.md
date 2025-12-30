@@ -25,17 +25,24 @@
 4. Create memory file: `.ai/memory/YYYYMMDD_HHMMSS_{agent}.md`
 5. Register in `CURRENT_TASK.md` active sessions table
 
-## Critical Rules
+## ⚠️ Critical Rules (MUST Follow)
 
 ### After Completing ANY Task
 ```
-MUST: Update TODO.md - Mark task as [x] completed
-MUST: Update CURRENT_TASK.md if registered
+IMMEDIATELY: Update TODO.md → Change [•] to [✓] for completed task
+IMMEDIATELY: Update your memory file with completion notes
+IMMEDIATELY: Update CURRENT_TASK.md if you were registered
+```
+
+### Before Starting Next Task
+```
+VERIFY: Previous task is marked [✓] in TODO.md
+DO NOT: Start new task until TODO.md is updated
 ```
 
 ### Before Starting Next Phase
 ```
-STOP: Confirm all tasks in current phase are [x] marked
+STOP: Confirm ALL tasks in current phase are [✓] marked
 STOP: Ask user to confirm git commit
 STOP: DO NOT proceed until commit is done
 ```

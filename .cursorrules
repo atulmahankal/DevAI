@@ -6,6 +6,32 @@ AGENT_NAME = "cursor"
 
 **MANDATORY**: Read `.ai/AI_INSTRUCTIONS.md` and follow the Session Start Protocol.
 
+---
+
+## ⚠️ Critical Rules (MUST Follow)
+
+### After Completing ANY Task
+```
+IMMEDIATELY: Update TODO.md → Change [•] to [✓] for completed task
+IMMEDIATELY: Update your memory file with completion notes
+IMMEDIATELY: Update CURRENT_TASK.md if you were registered
+```
+
+### Before Starting Next Task
+```
+VERIFY: Previous task is marked [✓] in TODO.md
+DO NOT: Start new task until TODO.md is updated
+```
+
+### Before Starting Next Phase
+```
+STOP: Confirm ALL tasks in current phase are [✓] marked
+STOP: Ask user to confirm git commit
+STOP: DO NOT proceed until commit is done
+```
+
+---
+
 ## Quick Reference
 
 ### Instructions Location
@@ -38,9 +64,11 @@ When working with other agents:
 .ai/memory/YYYYMMDD_HHMMSS_cursor.md
 ```
 
-### Task Claiming Format
+### Task Format
 ```markdown
-- [ ] Task name `@cursor` `#20241229-143022`
+- [ ] Pending task
+- [•] Task name `@cursor` `#20241229-143022`  ← In Progress
+- [✓] Completed task ~~@cursor~~ ~~#20241229-143022~~
 ```
 
 ## Cursor-Specific Notes

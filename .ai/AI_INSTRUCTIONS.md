@@ -51,9 +51,9 @@ When starting a task, update `TODO.md` with your claim:
 
 - [ ] Create FastAPI structure
 
-# After (claimed by claude)
+# After (claimed/in-progress by claude)
 
-- [ ] Create FastAPI structure `@claude` `#20241229-143022`
+- [•] Create FastAPI structure `@claude` `#20241229-143022`
 ```
 
 Format: `@{agent}` `#{session-id}`
@@ -69,11 +69,11 @@ When done or stopping:
 ```markdown
 # Completed
 
-- [x] Create FastAPI structure ~~@claude~~ ~~#20241229-143022~~
+- [✓] Create FastAPI structure ~~@claude~~ ~~#20241229-143022~~
 
 # Released (if stopping without completing)
 
-- [ ] Create FastAPI structure <!-- Released by claude -->
+- [ ] Create FastAPI structure <!-- Released by agent -->
 ```
 
 ---
@@ -82,7 +82,7 @@ When done or stopping:
 
 **IMMEDIATELY after completing ANY task, you MUST:**
 
-1. **UPDATE TODO.md** - Change `- [ ]` to `- [x]` for the completed task
+1. **UPDATE TODO.md** - Change `- [•]` to `- [✓]` for the completed task
 2. **UPDATE your memory file** - Record what was done
 3. **UPDATE CURRENT_TASK.md** - Update your status or remove session if done
 
@@ -417,6 +417,60 @@ Create `services/backend/` with:
   - Format: `YYYY-MM-DD_HH-MM-SS.log`
   - Log levels: DEBUG (dev), INFO (prod)
 
+- **FastAPI App Configuration** (MANDATORY):
+
+  ```python
+  # Disable default docs to customize with favicon
+  app = FastAPI(
+      docs_url=None,
+      redoc_url=None,
+      title=settings.PROJECT_NAME,
+      description="Project description here",
+      version="1.0.0",
+  )
+
+  # Mount static files for favicon
+  app.mount("/static", StaticFiles(directory="static"), name="static")
+
+  # Custom Swagger UI with favicon
+  @app.get("/docs", include_in_schema=False)
+  async def custom_swagger_ui_html():
+      return get_swagger_ui_html(
+          openapi_url=app.openapi_url,
+          title=app.title + " - API Docs",
+          swagger_favicon_url="/static/favicon.ico",
+      )
+
+  # Custom ReDoc with favicon
+  @app.get("/redoc", include_in_schema=False)
+  async def custom_redoc_html():
+      return get_redoc_html(
+          openapi_url=app.openapi_url,
+          title=app.title + " - ReDoc",
+          redoc_favicon_url="/static/favicon.ico",
+      )
+
+  # Serve favicon directly
+  @app.get("/favicon.ico", include_in_schema=False)
+  async def favicon():
+      return FileResponse("static/favicon.ico", media_type="image/x-icon")
+
+  # Root redirect to docs
+  @app.get("/")
+  async def root():
+      return RedirectResponse(url="/docs")
+
+  # API redirect to docs
+  @app.get("/api")
+  async def api_redirect():
+      return RedirectResponse(url="/docs")
+  ```
+
+- **Static Files Setup**:
+  - Create `static/` directory in backend root
+  - Add project-specific `favicon.ico` (or `favicon.svg`)
+  - Favicon must appear in browser tab for `/docs`, `/redoc`, and all pages
+
 #### 2.2 Frontend Base
 
 Create `services/frontend/` with:
@@ -445,6 +499,10 @@ Create `services/frontend/` with:
 - **Required Pages**:
 
   - Landing page with project branding
+
+- **Favicon**:
+  - Update `favicon.ico` in `public/` folder with project-specific icon
+  - Update page title in `index.html` to match project name
 
 - **Error Handling**:
 
@@ -551,6 +609,26 @@ git commit -m "feat: Phase 2 - Base application with error handling and logging"
 - Password hashing (bcrypt)
 - Session management
 
+**⚠️ MANDATORY Authentication Rules:**
+
+1. **Superadmin Creation Command**:
+   - Add CLI command to create superadmin user (e.g., `python manage.py createsuperadmin`)
+   - Document command usage in `./docs/ProductionDeployment.md`
+
+2. **RBAC Seed Data**:
+   - Default permissions must be seeded during database migration
+   - Default roles must be seeded during database migration
+   - Create seed/migration script for initial RBAC setup
+
+3. **Superadmin Validation**:
+   - Backend: All auth endpoints must check if superadmin exists
+   - Frontend: Auth pages must verify superadmin existence on load
+   - If no superadmin exists, throw error:
+     ```
+     "No Superadmin exists. Read Implementation details to create it."
+     ```
+   - Block all authentication operations until superadmin is created
+
 #### 3.2 Two-Factor Authentication (if required)
 
 - TOTP setup
@@ -580,7 +658,7 @@ Implement features as defined in `Implementation/TODO.md`:
 │                                                              │
 │  Before proceeding to Phase [N+1], verify:                   │
 │                                                              │
-│  □ All Phase [N] tasks marked [x] in TODO.md                 │
+│  □ All Phase [N] tasks marked [✓] in TODO.md                 │
 │  □ CHANGELOG.md updated                                      │
 │  □ Tests pass (if applicable)                                │
 │  □ User has confirmed commit                                 │
@@ -592,7 +670,7 @@ Implement features as defined in `Implementation/TODO.md`:
 
 ### Phase Completion Steps
 
-1. **VERIFY** all phase tasks are marked `[x]` in `Implementation/TODO.md`
+1. **VERIFY** all phase tasks are marked `[✓]` in `Implementation/TODO.md`
 2. **REMOVE** your session from `Implementation/CURRENT_TASK.md`
 3. **UPDATE** `CHANGELOG.md` in the `[Unreleased]` section
 4. **RUN** tests and verify they pass
@@ -602,8 +680,8 @@ Implement features as defined in `Implementation/TODO.md`:
    📋 Phase [N] Complete - Commit Required
 
    All tasks completed:
-   - [x] Task 1
-   - [x] Task 2
+   - [✓] Task 1
+   - [✓] Task 2
    ...
 
    Suggested commit message:
@@ -731,12 +809,12 @@ Agent: {agent_name}
 
 ## Completed This Session
 
-- [x] Task 1 - notes
-- [x] Task 2 - notes
+- [✓] Task 1 - notes
+- [✓] Task 2 - notes
 
 ## In Progress
 
-- [ ] Current task - state, blockers
+- [•] Current task - state, blockers
 
 ## Key Decisions
 
